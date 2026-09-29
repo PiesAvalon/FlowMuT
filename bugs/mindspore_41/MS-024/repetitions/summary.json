@@ -1,0 +1,11 @@
+{
+  "runs": [
+    "artifacts/behavioral/20260801T112640Z-p1041829",
+    "artifacts/behavioral/20260801T112754Z-p1042663",
+    "artifacts/behavioral/20260801T112754Z-p1042675"
+  ],
+  "trigger_case": "TARR-018",
+  "control_case": "TARR-021",
+  "result": "All three runs rejected Python-int k in PyNative and Graph mode, while Tensor-valued k succeeded in both modes.",
+  "error_signature": "For primitive[MatrixDiagPartV3], the input[1] should be a Tensor, but got Int64."
+}

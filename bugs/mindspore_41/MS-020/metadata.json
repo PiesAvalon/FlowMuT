@@ -1,0 +1,63 @@
+{
+  "id": "MS-020",
+  "status": "issue-ready",
+  "kind": "bug / Graph / unsupported builtin / silent wrong result",
+  "title": "Graph mode silently returns iterator internal state for explicit next(iter(Tensor)) and next(enumerate(Tensor))",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T084449Z-p854778",
+  "source_cases": [
+    "TITER-001",
+    "TITER-002",
+    "TITER-003"
+  ],
+  "control_cases": [
+    "TITER-004",
+    "TITER-005",
+    "TITER-006"
+  ],
+  "additional_confirmation_cases": [
+    "TPYB2-010",
+    "TPYB2-011",
+    "TPYB2-012",
+    "TPYBI-006"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T084655Z-p856323",
+    "artifacts/behavioral/20260801T084655Z-p856329"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore \"next(iter\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore \"next(iter\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore \"next(enumerate\"",
+    "\"Graph mode\" \"next(enumerate\" \"MindSpore\"",
+    "\"ms_next\" \"xs[0], xs[1:]\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html",
+    "https://docs.python.org/3/library/functions.html#next",
+    "https://docs.python.org/3/library/functions.html#enumerate"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 static graph syntax documentation lists enumerate among supported built-in functions.",
+    "The same MindSpore static graph syntax documentation lists next among unsupported built-in functions.",
+    "Because next is documented as unsupported, the expected Graph behavior is to reject the unsupported syntax. Returning an internal (current, rest) iterator protocol object as the user-visible result is still a silent wrong-result bug."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the mismatch is a return structure/type mismatch.",
+    "Not an unsupported CPU kernel issue: the failing cases compile and return a result; for/list controls over the same Tensor input also succeed.",
+    "Not duplicate coverage for Tensor iteration generally: list(enumerate(x))[0][1], for row in x, and for _, row in enumerate(x) all match PyNative mode.",
+    "Grouped as one issue because the triggering paths share the same Graph next/iterator protocol leak."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 12,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

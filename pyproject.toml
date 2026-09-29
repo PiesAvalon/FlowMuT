@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flowmut"
+version = "1.0.0"
+description = "FlowMuT: data-flow-guided mutation testing for deep learning frameworks"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["numpy>=1.24"]
+# Framework dependencies are intentionally not pinned here: FlowMuT runs each
+# framework from its own interpreter (PyTorch 2.12.1 on Python 3.13 and
+# MindSpore 2.7.1 on Python 3.9), which is how the evaluation is deployed.
+[project.optional-dependencies]
+pytorch = ["torch>=2.4"]
+mindspore = ["mindspore>=2.5"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+flowmut = "flowmut.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["flowmut*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]

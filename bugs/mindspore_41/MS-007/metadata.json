@@ -1,0 +1,34 @@
+{
+  "id": "MS-007",
+  "status": "issue-ready",
+  "kind": "bug / Graph / boolean-mask setitem shape semantics",
+  "title": "Boolean-mask Tensor setitem uses different RHS shape rules in PyNative and Graph modes",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T205330Z-p313415",
+  "source_cases": [
+    "TSET-004",
+    "TSET-006",
+    "TSET-007"
+  ],
+  "additional_confirmation_cases": [
+    "TSET-012",
+    "TSETL-004"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues boolean mask setitem Graph PyNative MindSpore",
+    "site:gitee.com/mindspore/mindspore/issues \"boolean mask\" \"setitem\" \"Graph\"",
+    "\"operands could not be broadcast together\" \"requested shape (3,4)\" \"MindSpore\" \"setitem\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 6,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

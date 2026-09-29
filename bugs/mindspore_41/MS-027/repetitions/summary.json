@@ -1,0 +1,26 @@
+{
+  "runs": [
+    {
+      "run": "artifacts/behavioral/20260801T175105Z-p1287732",
+      "alerts": ["TCOL2-002", "TCOL2-003"],
+      "summary": "Permanent TCOL2 source run reproduced Graph keyword rejection for Tensor.col2im; positional Tensor.col2im and direct ops.col2im keyword controls passed."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T175228Z-p1288833",
+      "alerts": ["TCOL2-002", "TCOL2-003"],
+      "summary": "First permanent repetition reproduced the same two alerts and the same two controls."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T175339Z-p1289826",
+      "alerts": ["TCOL2-002", "TCOL2-003"],
+      "summary": "Second permanent repetition reproduced the same two alerts and the same two controls."
+    }
+  ],
+  "minimal_reproducer_checks": [
+    "findings/MS-027/reproducer.py --mode pynative --variant tensor_keywords succeeds",
+    "findings/MS-027/reproducer.py --mode graph --variant tensor_keywords fails with unexpected keyword argument output_size",
+    "findings/MS-027/reproducer.py --mode graph --variant tensor_mixed fails with unexpected keyword argument kernel_size",
+    "findings/MS-027/reproducer.py --mode graph --variant tensor_positional succeeds",
+    "findings/MS-027/reproducer.py --mode graph --variant ops_keywords succeeds"
+  ]
+}

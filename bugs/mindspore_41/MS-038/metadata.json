@@ -1,0 +1,51 @@
+{
+  "id": "MS-038",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / primitive argument type",
+  "title": "NonMaxSuppressionWithOverlaps rejects documented scalar arguments",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T044717Z-p1653353",
+  "source_cases": [
+    "TNMS-001",
+    "TNMS-002",
+    "TPRIMSC-008"
+  ],
+  "control_cases": [
+    "TNMS-003",
+    "TPRIMSC-009"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260802T044122Z-p1648872"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:mindspore.cn/docs/en/r2.9.0/api_python/ops \"mindspore.ops.NonMaxSuppressionWithOverlaps\"",
+    "site:gitee.com/mindspore/mindspore/issues \"NonMaxSuppressionWithOverlaps\" \"max_output_size\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"NonMaxSuppressionWithOverlaps\" \"max_output_size\"",
+    "\"NonMaxSuppressionWithOverlaps\" \"Valid type list\" \"Tensor[Int32]\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for scalar max_output_size or scalar threshold rejection in NonMaxSuppressionWithOverlaps.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.NonMaxSuppressionWithOverlaps.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 NonMaxSuppressionWithOverlaps docs list max_output_size as Union[Tensor, Number.int], overlap_threshold as Union[Tensor, Number.Float], score_threshold as Union[Tensor, Number.Float], and CPU support.",
+    "The all-Tensor scalar control passes in both PyNative and Graph mode.",
+    "Using a Python int max_output_size fails with a type error; using Python float thresholds fails with an internal GetShapeVector RuntimeError."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: all failures occur before returning the selected indices.",
+    "Not a CPU unsupported issue: the all-Tensor scalar control passes on CPU and CPU support is documented.",
+    "The issue affects both PyNative and Graph mode."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

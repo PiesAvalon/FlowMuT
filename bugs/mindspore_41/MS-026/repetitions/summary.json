@@ -1,0 +1,27 @@
+{
+  "runs": [
+    {
+      "run": "artifacts/behavioral/20260801T171915Z-p1262997",
+      "alerts": ["TWINSHAPE-002", "TWINSHAPE-003"],
+      "summary": "Initial probe reproduced the mismatch. TWINSHAPE-001 hamming_window control passed; TWINSHAPE-002 hann_window and TWINSHAPE-003 kaiser_window returned scalar Tensor from ops.shape in Graph mode."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T172112Z-p1264636",
+      "alerts": ["TWINSHAPE-002", "TWINSHAPE-003"],
+      "summary": "First repetition reproduced the same two alerts and the same hamming_window control pass."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T172208Z-p1265426",
+      "alerts": ["TWINSHAPE-002", "TWINSHAPE-003"],
+      "summary": "Second repetition reproduced the same two alerts and the same hamming_window control pass."
+    }
+  ],
+  "minimal_reproducer_checks": [
+    "findings/MS-026/reproducer.py --mode pynative --window hamming returns tuple ops_shape",
+    "findings/MS-026/reproducer.py --mode graph --window hamming returns tuple ops_shape",
+    "findings/MS-026/reproducer.py --mode pynative --window hann returns tuple ops_shape",
+    "findings/MS-026/reproducer.py --mode graph --window hann returns scalar Tensor ops_shape",
+    "findings/MS-026/reproducer.py --mode pynative --window kaiser returns tuple ops_shape",
+    "findings/MS-026/reproducer.py --mode graph --window kaiser returns scalar Tensor ops_shape"
+  ]
+}

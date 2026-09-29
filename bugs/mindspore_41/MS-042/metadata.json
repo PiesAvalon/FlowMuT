@@ -1,0 +1,81 @@
+{
+  "id": "MS-042",
+  "status": "issue-ready",
+  "kind": "bug / Graph / control-flow primitive / Tensor constant handling",
+  "title": "WhileLoop fails in Graph mode when a local cond_func or loop_func uses Tensor constants",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T055350Z-p1708822",
+  "source_cases": [
+    "TCFLOW-005"
+  ],
+  "confirmation_runs": [
+    "artifacts/behavioral/20260802T055714Z-p1711407",
+    "artifacts/behavioral/20260802T060201Z-p1714890"
+  ],
+  "additional_confirmation_cases": [
+    "TCFLOW-011",
+    "TCFLOW-015",
+    "TCFLOW-016",
+    "TCFLOW-017"
+  ],
+  "control_cases": [
+    "TCFLOW-004",
+    "TCFLOW-010",
+    "TCFLOW-012",
+    "TCFLOW-018",
+    "TCFLOW-019",
+    "TCFLOW-020"
+  ],
+  "control_run": "artifacts/behavioral/20260802T060329Z-p1716066",
+  "last_revalidated": "2026-08-03",
+  "revalidation": {
+    "environment": "MindSpore 2.9.0, Python 3.11.15, CPU, Ubuntu 24.04.4 LTS (WSL2)",
+    "independent_graph_repetitions": "3/3 reproduced",
+    "failing_variants": [
+      "tensor_cond_bound",
+      "tensor_loop_step",
+      "tensor_attrs"
+    ],
+    "passing_controls": [
+      "python_constants_control",
+      "global_tensor_constant_control",
+      "tuple_tensor_carry_control",
+      "nested_tensor_constant_control",
+      "fori_tensor_constant_control",
+      "scan_tensor_constant_control"
+    ]
+  },
+  "duplicate_search_date": "2026-08-03",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues WhileLoop Tensor constant object is not callable Graph MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues WhileLoop Tensor constant object is not callable Graph MindSpore",
+    "\"WhileLoop\" \"The object is not callable\" \"MindSpore\"",
+    "\"ops.WhileLoop\" \"Tensor\" \"object is not callable\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for WhileLoop Graph mode failing when a locally defined cond_func or loop_func uses Tensor constants.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.WhileLoop.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 WhileLoop docs list CPU support and describe init_val as Union[Tensor, number, str, bool, list, tuple, dict].",
+    "The documented syntactic limitations mention side effects and loop_func returning a different type or shape from init_val; the failing cases satisfy these constraints.",
+    "The same Tensor scalar carry passes when local cond_func and loop_func use Python constants.",
+    "The same Tensor constant passes when the WhileLoop callbacks are defined at module level.",
+    "Plain nested functions, ForiLoop, and Scan controls using scalar Tensor constants pass in Graph mode, localizing the failure to WhileLoop's handling of Tensor constants in the supplied functions."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode fails during static analysis with ValueError before producing numeric output.",
+    "Not a CPU unsupported issue: WhileLoop documents CPU support, and the Python-constant and tuple-carry controls pass on CPU.",
+    "Not a general local-function Graph parser limitation: a plain local Tensor-constant function compiles and runs in Graph mode.",
+    "The observed Graph error is an internal static-analysis failure: 'The object is not callable' with a DeadNode FuncGraph call site."
+  ],
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 18,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

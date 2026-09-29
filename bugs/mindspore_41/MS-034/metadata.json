@@ -1,0 +1,68 @@
+{
+  "id": "MS-034",
+  "status": "issue-ready",
+  "kind": "bug / Graph / control flow / mixed bool condition",
+  "title": "Graph mode fails to compile while conditions combining Python bool and scalar Tensor bool",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T205206Z-p1439079",
+  "source_cases": [
+    "TBWH-001",
+    "TBWH-003",
+    "TBWH-004",
+    "TBMIX-002"
+  ],
+  "additional_confirmation_cases": [
+    "TBOOL-005"
+  ],
+  "control_cases": [
+    "TBWH-002",
+    "TBWH-005",
+    "TBWH-006",
+    "TBWHV-001",
+    "TBWHV-002",
+    "TBWHV-003",
+    "TBWHV-004",
+    "TBWHV-005",
+    "TBMIX-001",
+    "TBMIX-003"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T184630Z-p1333036",
+    "artifacts/behavioral/20260801T184809Z-p1334445",
+    "artifacts/behavioral/20260801T184948Z-p1333030",
+    "artifacts/behavioral/20260801T211505Z-p1459974"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues MindSpore Graph while \"Cannot join the return values\" \"AbstractTensor\" \"AbstractScalar\" bool",
+    "site:gitee.com/mindspore/mindspore/issues \"Cannot join the return values\" \"AbstractTensor\" \"AbstractScalar\" \"while\"",
+    "\"MindSpore\" \"while\" \"out.sum() > 0 and\" \"Type Join Failed\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html",
+    "https://docs.python.org/3/reference/compound_stmts.html#the-while-statement",
+    "https://docs.python.org/3/reference/expressions.html#boolean-operations"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 Graph mode supports while/if control flow and scalar Tensor bool predicates in adjacent controls.",
+    "The Python while condition is a valid boolean expression combining a Python scalar comparison and a scalar Tensor comparison with and.",
+    "The mixed if condition passes, pure Python while passes, and pure Tensor while passes; the failure is localized to mixed Python/Tensor bool while conditions."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode fails during compile before producing a tensor result.",
+    "Not a CPU kernel support issue: the failing path is control-flow analysis; adjacent CPU controls compile and run.",
+    "Not caused by Tensor getitem in the loop body: TBWH-003 fails without dynamic getitem, and TBWH-004 fails with only constant getitem.",
+    "The same failure reproduces across four independent TBWH runs plus the reverse-order TBMIX-002 confirmation."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

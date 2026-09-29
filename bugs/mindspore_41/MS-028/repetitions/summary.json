@@ -1,0 +1,28 @@
+{
+  "id": "MS-028",
+  "source_run": "artifacts/behavioral/20260801T183200Z-p1321296",
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T182908Z-p1317748",
+    "artifacts/behavioral/20260801T182908Z-p1317757",
+    "artifacts/behavioral/20260801T182908Z-p1317763"
+  ],
+  "result": "All four runs produced the same six alerts: TSVD-001/002/003 graph-reference-mismatch and observation-mismatch. TSVD-004 and TSVD-005 passed as controls.",
+  "stable_alerts": [
+    "TSVD-001--graph-reference-mismatch",
+    "TSVD-001--observation-mismatch",
+    "TSVD-002--graph-reference-mismatch",
+    "TSVD-002--observation-mismatch",
+    "TSVD-003--graph-reference-mismatch",
+    "TSVD-003--observation-mismatch"
+  ],
+  "passing_controls": [
+    "TSVD-004",
+    "TSVD-005"
+  ],
+  "discarded_related_candidates": [
+    {
+      "case_id": "TWRAP-020/TWRAP-027/TWRAP-028",
+      "reason": "Historical SVD shape alerts were not current when re-run; MS-028 uses newly isolated current cases with stable repeats and controls."
+    }
+  ]
+}

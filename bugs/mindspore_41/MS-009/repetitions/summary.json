@@ -1,0 +1,29 @@
+{
+  "id": "MS-009",
+  "runs": [
+    {
+      "name": "pynative-method-default",
+      "command": ".envs/ms29/bin/python findings/MS-009/reproducer.py --mode pynative --variant method_default",
+      "repetitions": 3,
+      "result": "3/3 returned [[9,4,2],[3,8,5]]"
+    },
+    {
+      "name": "graph-method-default",
+      "command": ".envs/ms29/bin/python findings/MS-009/reproducer.py --mode graph --variant method_default",
+      "repetitions": 3,
+      "result": "3/3 failed with RuntimeError: Miss argument input for parameter:offset"
+    },
+    {
+      "name": "graph-method-positional-offset",
+      "command": ".envs/ms29/bin/python findings/MS-009/reproducer.py --mode graph --variant method_positional_offset",
+      "repetitions": 3,
+      "result": "3/3 returned [[9,4,2],[3,8,5]]"
+    },
+    {
+      "name": "graph-functional-default",
+      "command": ".envs/ms29/bin/python findings/MS-009/reproducer.py --mode graph --variant functional_default",
+      "repetitions": 3,
+      "result": "3/3 returned [[9,4,2],[3,8,5]]"
+    }
+  ]
+}

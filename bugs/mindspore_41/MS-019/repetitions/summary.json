@@ -1,0 +1,27 @@
+{
+  "id": "MS-019",
+  "runs": [
+    {
+      "command": "python triage/behavioral_miner.py run --case-prefix TKEY --timeout 120",
+      "artifacts": [
+        "artifacts/behavioral/20260801T062000Z-p709112",
+        "artifacts/behavioral/20260801T062348Z-p711607",
+        "artifacts/behavioral/20260801T062529Z-p712861",
+        "artifacts/behavioral/20260801T062706Z-p714130"
+      ],
+      "result": "TKEY-001..TKEY-006 produced 6/6 alerts in all 4 independent campaigns. In every run, PyNative keyword and positional controls succeeded, while Graph keyword calls failed with unexpected keyword argument errors."
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-019/reproducer.py --mode graph --variant *_keyword",
+      "result": "Each keyword variant fails in Graph mode with RuntimeError: Got an unexpected keyword argument for the public Tensor parameter name."
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-019/reproducer.py --mode graph --variant *_positional",
+      "result": "Each positional control succeeds in Graph mode on CPU."
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-019/reproducer.py --mode pynative --variant *_keyword",
+      "result": "Each keyword variant succeeds in PyNative mode on CPU."
+    }
+  ]
+}

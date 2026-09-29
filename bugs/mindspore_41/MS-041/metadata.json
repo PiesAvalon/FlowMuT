@@ -1,0 +1,53 @@
+{
+  "id": "MS-041",
+  "status": "issue-ready",
+  "kind": "bug / PyNative / API-contract / argument validation",
+  "title": "Scan rejects documented xs=None in PyNative mode",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T055350Z-p1708822",
+  "source_cases": [
+    "TCFLOW-008"
+  ],
+  "confirmation_run": "artifacts/behavioral/20260802T055714Z-p1711407",
+  "additional_confirmation_cases": [
+    "TCFLOW-013",
+    "TCFLOW-014"
+  ],
+  "control_cases": [
+    "TCFLOW-006",
+    "TCFLOW-007"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues Scan xs None length isinstance arg 2 must be a type tuple types union MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues Scan None length isinstance arg 2 must be a type tuple types union MindSpore",
+    "\"Scan\" \"isinstance() arg 2 must be a type\" \"MindSpore\"",
+    "\"ops.Scan\" \"xs\" \"None\" \"length\" \"isinstance\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for ops.Scan rejecting xs=None with length in PyNative mode.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.Scan.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local Scan docstring documents xs as Union[tuple, list, None], length as Union[int, None], CPU support, and pseudocode that replaces xs=None with [None] * length.",
+    "The same local source shows Scan.__call__ validating xs with validator.check_value_type(\"xs\", xs, [list, tuple, None], \"Scan\"), which passes None instead of type(None) into isinstance.",
+    "Graph mode accepts xs=None with both Python int init and Tensor init and returns the expected length-three scan outputs.",
+    "List and tuple xs controls pass in both PyNative and Graph mode."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the failing path is a Python TypeError before any numeric kernel result is produced.",
+    "Not a CPU unsupported issue: Scan documents CPU support, and the list/tuple xs controls pass on CPU.",
+    "The failure is localized to PyNative argument validation for xs=None; Graph mode and non-None xs controls demonstrate that the loop function and result structure are valid.",
+    "The observed TypeError is an internal validator programming error rather than a documented user-facing validation error."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

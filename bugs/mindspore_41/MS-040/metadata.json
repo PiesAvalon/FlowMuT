@@ -1,0 +1,59 @@
+{
+  "id": "MS-040",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / scalar argument type",
+  "title": "ops.polar and Polar reject documented Python float arguments",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T052041Z-p1682614",
+  "source_cases": [
+    "TPRIMSEQ-006",
+    "TPRIMSEQ-007",
+    "TPRIMSEQ-008",
+    "TPRIMSEQ-009"
+  ],
+  "control_cases": [
+    "TPRIMSEQ-010",
+    "TPRIMSEQ-011",
+    "TPRIMSEQ-012",
+    "TPRIMSEQ-013"
+  ],
+  "control_run": "artifacts/behavioral/20260802T052605Z-p1686659",
+  "exploratory_runs": [
+    "artifacts/behavioral/20260802T051815Z-p1680560",
+    "artifacts/behavioral/20260802T052041Z-p1682602",
+    "artifacts/behavioral/20260802T052041Z-p1682606"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues Polar abs angle float Tensor MindSpore TypeError",
+    "site:github.com/mindspore-ai/mindspore/issues ops.polar float angle Tensor MindSpore",
+    "\"Failed calling Polar\" \"abs=Tensor, angle=float\"",
+    "\"ops.polar\" \"abs (Tensor, float)\" \"angle (Tensor, float)\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for ops.polar or Polar rejecting documented Python float abs/angle arguments.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.polar.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 ops.polar docs list abs as (Tensor, float), angle as (Tensor, float), return Tensor, and list CPU as a supported platform.",
+    "MindSpore 2.9 local help(ops.Polar) likewise says Inputs abs (Tensor, float) and angle (Tensor, float), with CPU support.",
+    "Same-shape Tensor controls pass for both ops.polar and ops.Polar in PyNative and Graph mode.",
+    "A pair of 0-D Tensor arguments also passes, so the failure is specifically Python float argument handling, not scalar-shaped tensor handling."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the Python float cases fail before producing a complex tensor.",
+    "Not a CPU unsupported issue: Tensor controls pass on CPU and CPU support is documented.",
+    "The issue affects both the functional wrapper ops.polar and the direct Polar primitive, in both PyNative and Graph mode.",
+    "The active signature error says the valid call is abs=<Tensor>, angle=<Tensor>, which contradicts the documented float allowance."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 18,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

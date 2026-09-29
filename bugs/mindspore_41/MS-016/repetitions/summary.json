@@ -1,0 +1,23 @@
+{
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-016/reproducer.py --mode pynative --variant tensor_eigvals",
+      "repetitions": 3,
+      "result": "failed all 3 runs with TypeError: eigvals() missing 1 required positional argument: 'A'"
+    }
+  ],
+  "controls": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-016/reproducer.py --mode pynative --variant ops_eigvals",
+      "result": "succeeded and returned Tensor(shape=(2,), dtype=Complex64)"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-016/reproducer.py --mode graph --variant tensor_eigvals",
+      "result": "succeeded and returned Tensor(shape=(2,), dtype=Complex64)"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-016/reproducer.py --mode graph --variant ops_eigvals",
+      "result": "succeeded and returned Tensor(shape=(2,), dtype=Complex64)"
+    }
+  ]
+}

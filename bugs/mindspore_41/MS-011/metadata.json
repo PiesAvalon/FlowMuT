@@ -1,0 +1,34 @@
+{
+  "id": "MS-011",
+  "status": "issue-ready",
+  "kind": "bug / Graph / deprecated Tensor method registration",
+  "title": "Tensor.diag() fails in Graph mode because deprecated Tensor method is not registered",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T221027Z-p382885",
+  "source_cases": [
+    "TMAT-009"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"As a deprecated Tensor method, 'diag' should be registered\"",
+    "\"deprecated_tensor_method_map\" \"diag\" \"MindSpore\"",
+    "\"Tensor.diag\" \"deprecated_tensor_method_map\"",
+    "\"diag\" \"should be registered in graph/_parse/deprecated/deprecated_tensor_method.py\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9.0 Tensor.diag documentation refers users to mindspore.ops.diag().",
+    "MindSpore 2.9.0 ops.diag documentation says the operator supports Ascend, GPU and CPU.",
+    "Graph mode reports a framework unexpected exception asking users to create an issue."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 4,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

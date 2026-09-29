@@ -1,0 +1,59 @@
+{
+  "id": "MS-024",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / argument type",
+  "title": "ops.matrix_diag_part rejects documented int k on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T112640Z-p1041829",
+  "source_cases": [
+    "TARR-018"
+  ],
+  "control_cases": [
+    "TARR-021"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T112754Z-p1042663",
+    "artifacts/behavioral/20260801T112754Z-p1042675"
+  ],
+  "additional_confirmation_runs": [
+    "artifacts/behavioral/20260801T192928Z-p1366948",
+    "artifacts/behavioral/20260801T193048Z-p1367984",
+    "artifacts/behavioral/20260801T193048Z-p1367990"
+  ],
+  "additional_confirmation_cases": [
+    "TMDIAG2-005",
+    "TMDP-001",
+    "TMDP-002"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore \"MatrixDiagPartV3\" \"input[1] should be a Tensor\"",
+    "site:github.com/mindspore-ai/mindspore \"MatrixDiagPartV3\" \"input[1] should be a Tensor\"",
+    "\"ops.matrix_diag_part\" \"k\" \"Union[int, Tensor]\" MindSpore",
+    "\"matrix_diag_part\" \"input[1] should be a Tensor\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.matrix_diag_part.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 official ops.matrix_diag_part documentation lists k as Union[int, Tensor] and lists CPU as a supported platform.",
+    "The docs note that k and padding_value must be const tensors when taking graph mode, but the Python-int form is rejected in PyNative mode as well."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the call fails before producing a value.",
+    "Not a CPU kernel issue: the Tensor-valued k control succeeds in both PyNative and Graph mode.",
+    "Scoped to the documented int k argument form.",
+    "Additional TMDP confirmation covers both k=0 and a valid nonzero k=1 case while keeping padding_value as Tensor."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 4,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

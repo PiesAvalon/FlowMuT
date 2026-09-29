@@ -1,0 +1,61 @@
+{
+  "id": "MS-017",
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amax_initial",
+      "result": "failed all 3 runs with RuntimeError: Got an unexpected keyword argument 'initial'"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amin_initial",
+      "result": "failed all 3 runs with RuntimeError: Got an unexpected keyword argument 'initial'"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant ops_amax_initial",
+      "result": "succeeded all 3 runs with dtype Int32 and result [10 10]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant ops_amin_initial",
+      "result": "succeeded all 3 runs with dtype Int32 and result [0 0]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amax_plain",
+      "result": "succeeded all 3 runs with dtype Int32 and result [3 6]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amin_plain",
+      "result": "succeeded all 3 runs with dtype Int32 and result [1 4]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode pynative --variant tensor_amax_initial",
+      "result": "succeeded all 3 runs with dtype Int32 and result [10 10]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode pynative --variant tensor_amin_initial",
+      "result": "succeeded all 3 runs with dtype Int32 and result [0 0]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amax_keepdims",
+      "result": "failed all 3 runs with RuntimeError: Got an unexpected keyword argument 'keepdims'"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant tensor_amin_keepdims",
+      "result": "failed all 3 runs with RuntimeError: Got an unexpected keyword argument 'keepdims'"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant ops_amax_keepdims",
+      "result": "succeeded all 3 runs with dtype Int32 and result [[3], [6]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode graph --variant ops_amin_keepdims",
+      "result": "succeeded all 3 runs with dtype Int32 and result [[1], [4]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode pynative --variant tensor_amax_keepdims",
+      "result": "succeeded all 3 runs with dtype Int32 and result [[3], [6]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-017/reproducer.py --mode pynative --variant tensor_amin_keepdims",
+      "result": "succeeded all 3 runs with dtype Int32 and result [[1], [4]]"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "MS-019",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method keyword signature",
+  "title": "Several Tensor method keyword arguments are rejected in Graph mode because standard_method uses different parameter names",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T062000Z-p709112",
+  "source_cases": [
+    "TKEY-001",
+    "TKEY-002",
+    "TKEY-003",
+    "TKEY-004",
+    "TKEY-005",
+    "TKEY-006"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T062348Z-p711607",
+    "artifacts/behavioral/20260801T062529Z-p712861",
+    "artifacts/behavioral/20260801T062706Z-p714130"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore \"unexpected keyword argument 'other'\" \"bitwise_left_shift\"",
+    "site:gitee.com/mindspore/mindspore \"unexpected keyword argument 'other'\" \"bitwise_left_shift\"",
+    "site:github.com/mindspore-ai/mindspore \"Tensor.renorm\" \"unexpected keyword argument 'axis'\"",
+    "site:gitee.com/mindspore/mindspore \"Tensor.multiply\" \"unexpected keyword argument 'value'\"",
+    "\"Got an unexpected keyword argument 'value'\" \"mindspore\" \"Tensor.multiply\"",
+    "\"Got an unexpected keyword argument 'axis'\" \"mindspore\" \"Tensor.renorm\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.Tensor.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.renorm.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.float_power.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.multiply.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.equal.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local Tensor signatures expose bitwise_left_shift(other), bitwise_right_shift(other), renorm(p, axis, maxnorm), float_power(other), multiply(value), and equal(other).",
+    "MindSpore 2.9 official Tensor API index links these Tensor methods, and the method pages/documented signatures use the public Tensor parameter names.",
+    "The same operations work in Graph mode when called positionally on CPU, so this is not an unsupported kernel issue."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: failures occur at Graph argument binding before numerical comparison.",
+    "Not an unsupported CPU issue: positional Graph controls succeed for every affected method.",
+    "Grouped as one issue because all six cases have the same root shape: Graph standard_method parameter names differ from the public Tensor method signatures."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 24,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

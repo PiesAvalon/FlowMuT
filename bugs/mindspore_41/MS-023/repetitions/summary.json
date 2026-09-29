@@ -1,0 +1,13 @@
+{
+  "runs": [
+    "artifacts/behavioral/20260801T111118Z-p1029612",
+    "artifacts/behavioral/20260801T111411Z-p1031799",
+    "artifacts/behavioral/20260801T111411Z-p1031805"
+  ],
+  "cases": ["TROUND-001", "TROUND-002", "TROUND-003"],
+  "result": "All three runs produced the same six must-succeed failures: PyNative and Graph both reject positive and negative nonzero decimals on CPU.",
+  "error_signatures": [
+    "For Round only support decimals equal 0, but got decimals equal 1",
+    "For Round only support decimals equal 0, but got decimals equal -1"
+  ]
+}

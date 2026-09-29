@@ -1,0 +1,60 @@
+{
+  "id": "MS-012",
+  "summary": "Tensor.add_ on CPU silently no-ops in PyNative statement form, returns x + 2 in return-value form, and produces x + 4 for both outputs in a Graph paired statement/return-value form.",
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode pynative --variant statement",
+      "expected": "success with original tensor",
+      "returncode": 0,
+      "key_output": "result: [[1. 4. 2.] [3. 0. 5.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode pynative --variant return_value",
+      "expected": "success with x + 2",
+      "returncode": 0,
+      "key_output": "result: [[3. 6. 4.] [5. 2. 7.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode graph --variant statement",
+      "expected": "success with x + 2",
+      "returncode": 0,
+      "key_output": "result: [[3. 6. 4.] [5. 2. 7.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode graph --variant return_value",
+      "expected": "success with x + 2",
+      "returncode": 0,
+      "key_output": "result: [[3. 6. 4.] [5. 2. 7.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode pynative --variant paired",
+      "expected": "success with statement original and return-value x + 2",
+      "returncode": 0,
+      "key_output": "result[0]: [[1. 4. 2.] [3. 0. 5.]]; result[1]: [[3. 6. 4.] [5. 2. 7.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode graph --variant paired",
+      "expected": "success with both outputs x + 4",
+      "returncode": 0,
+      "key_output": "result[0]: [[5. 8. 6.] [7. 4. 9.]]; result[1]: [[5. 8. 6.] [7. 4. 9.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode graph --variant paired",
+      "expected": "repeat success with both outputs x + 4",
+      "returncode": 0,
+      "key_output": "same x + 4 paired output on repeat 2"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode pynative --variant functional",
+      "expected": "control success with x + 2",
+      "returncode": 0,
+      "key_output": "result: [[3. 6. 4.] [5. 2. 7.]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-012/reproducer.py --mode graph --variant functional",
+      "expected": "control success with x + 2",
+      "returncode": 0,
+      "key_output": "result: [[3. 6. 4.] [5. 2. 7.]]"
+    }
+  ]
+}

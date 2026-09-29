@@ -1,0 +1,62 @@
+{
+  "id": "MS-029",
+  "status": "issue-ready",
+  "kind": "bug / Graph / sparse CSR / CPU kernel metadata",
+  "title": "Graph mode CSRMul fails with dense Tensor operand on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T201940Z-p1408183",
+  "source_cases": [
+    "TSPB-001",
+    "TSPB-002"
+  ],
+  "additional_confirmation_cases": [
+    "TSPX-008"
+  ],
+  "control_cases": [
+    "TSPB-004",
+    "TSPB-005"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T202133Z-p1409648",
+    "artifacts/behavioral/20260801T202133Z-p1409654"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260801T201556Z-p1405127",
+    "artifacts/behavioral/20260801T201845Z-p1407449"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues \"Parsed metadata of op[CSRMul] failed\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Parsed metadata of op[CSRMul] failed\"",
+    "\"Parsed metadata of op[CSRMul] failed\" MindSpore",
+    "\"CSRMul\" \"OpIOInfo\" \"real input num\" MindSpore",
+    "gh search issues '\"Parsed metadata of op[CSRMul] failed\" repo:mindspore-ai/mindspore'"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.CSRTensor.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.ops.html",
+    ".envs/ms29/lib/python3.11/site-packages/mindspore/ops/function/sparse_func.py:227"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local csr_mul docstring accepts x as CSRTensor and y as Tensor, returns CSRTensor, and lists CPU as a supported platform.",
+    "MindSpore 2.9 local sparse_func.py implements csr_mul by calling CSRDiv/CSRMul-style CSR kernels and returning CSRTensor(x.indptr, x.indices, res_values, x.shape).",
+    "CSRTensor arithmetic is exposed as public API; the operator form x.to_csr() * dense Tensor routes to the same failing CSRMul path."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the failing reproducer does not compare floating-point values; Graph mode fails before returning.",
+    "Not a CPU unsupported issue: csr_mul docstring lists CPU support, and CSR unary/to_dense controls pass in Graph mode on CPU.",
+    "Not an invalid sparse input issue: the same dense-to-CSR input works in PyNative mode and with Graph-mode CSR unary controls.",
+    "The Graph error is localized to CSRMul CPU kernel metadata parsing: 'Parsed metadata of op[CSRMul] failed' with an OpIOInfo input-count warning."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

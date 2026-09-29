@@ -1,0 +1,8 @@
+{
+  "command": ".envs/ms29/bin/python findings/MS-002/reproducer.py --mode <pynative|graph>",
+  "mindspore_version": "2.9.0",
+  "runs_per_mode": 3,
+  "pynative_structure": "((max_values: Float32, max_indices: Int64), (min_values: Float32, min_indices: Int64))",
+  "graph_structure": "(max_values: Float32, min_values: Float32)",
+  "all_runs_reproduced": true
+}

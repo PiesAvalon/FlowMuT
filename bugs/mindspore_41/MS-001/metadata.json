@@ -1,0 +1,34 @@
+{
+  "id": "MS-001",
+  "status": "issue-ready",
+  "kind": "bug",
+  "oracle_family": [
+    "metadata",
+    "approximate-value",
+    "termination-contract"
+  ],
+  "source_case": "ALG-64-013",
+  "root_cause_key": "cpu-logsoftmax-float64-dispatch-or-validation",
+  "mindspore_versions": [
+    "2.7.1",
+    "2.9.0",
+    "2.10.0"
+  ],
+  "device": "CPU",
+  "modes": [
+    "PYNATIVE_MODE",
+    "GRAPH_MODE"
+  ],
+  "upstream_duplicate_search_date": "2026-08-01",
+  "upstream_duplicate_queries": [
+    "repo:mindspore-ai/mindspore is:issue log_softmax float64",
+    "repo:mindspore-ai/mindspore is:issue LogSoftmax double precision",
+    "repo:mindspore-ai/mindspore is:issue log_softmax dtype"
+  ],
+  "upstream_duplicate_matches": [],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 2,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

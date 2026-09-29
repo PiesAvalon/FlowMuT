@@ -1,0 +1,55 @@
+{
+  "id": "MS-037",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / primitive argument type",
+  "title": "MatrixDiagV3 primitive rejects documented Python int diagonal arguments",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T044122Z-p1648872",
+  "source_cases": [
+    "TPRIMSC-001",
+    "TPRIMSC-002"
+  ],
+  "control_cases": [
+    "TARG5-023",
+    "TARG5-024"
+  ],
+  "additional_confirmation_cases": [
+    "TPRIMSC-003",
+    "TPRIMSC-004"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260802T042828Z-p1638588"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues MatrixDiagV3 input[1] should be a Tensor got Int64",
+    "site:github.com/mindspore-ai/mindspore/issues MatrixDiagV3 input[1] should be a Tensor got Int64",
+    "\"MatrixDiagV3\" \"input[1] should be a Tensor\" \"Int64\"",
+    "\"MatrixDiagV3\" \"CheckArgsType\" \"Int64\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for MatrixDiagV3 direct primitive Python int argument rejection.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.MatrixDiagV3.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.matrix_diag.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 MatrixDiagV3 docs list k as Union[int, Tensor] and num_rows/num_cols/padding_value as scalar-compatible arguments, with CPU support.",
+    "The higher-level ops.matrix_diag wrapper accepts the same Python int arguments in both execution modes.",
+    "Tensor-valued MatrixDiagV3 primitive arguments pass, so the failure is localized to Python scalar handling in the direct primitive."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the direct primitive raises before returning a tensor.",
+    "Not a CPU unsupported issue: Tensor-valued primitive controls and ops.matrix_diag Python-int controls pass on CPU.",
+    "Related to, but distinct from, MS-024: MS-024 covers matrix_diag_part k handling; this issue covers the direct MatrixDiagV3 primitive."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 12,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

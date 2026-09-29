@@ -1,0 +1,45 @@
+{
+  "id": "MS-018",
+  "status": "issue-ready",
+  "kind": "bug / Tensor method default arguments",
+  "title": "Tensor.reverse_sequence default arguments are unusable and diverge in Graph mode",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T051823Z-p648854",
+  "source_cases": [
+    "TSEQ-008",
+    "TSEQ-009"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"mindspore.Tensor.reverse_sequence\" \"seq_dim=0\" \"batch_dim=0\"",
+    "\"Miss argument input for parameter:seq_dim\" \"reverse_sequence\" \"MindSpore\"",
+    "\"ReverseSequence\" \"batch_dim\" \"seq_dim\" \"Tensor.reverse_sequence\"",
+    "site:gitee.com/mindspore/mindspore/issues \"reverse_sequence\" \"seq_dim\" \"batch_dim\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"reverse_sequence\" \"seq_dim\" \"batch_dim\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.reverse_sequence.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.reverse_sequence.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 official Tensor.reverse_sequence page shows Tensor.reverse_sequence(seq_lengths, seq_dim=0, batch_dim=0).",
+    "MindSpore 2.9 official ops.reverse_sequence page shows seq_dim is required, batch_dim defaults to 0, and CPU is supported.",
+    "MindSpore 2.9 local Graph standard_method.reverse_sequence(x, seq_lengths, seq_dim, batch_dim=0) does not provide the Tensor method's seq_dim default."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the reproducer uses int32 sequence reversal.",
+    "Not an unsupported CPU kernel issue: explicit Tensor.reverse_sequence(..., seq_dim=1) and ops.reverse_sequence(..., seq_dim=1) work in Graph mode on CPU.",
+    "The default Tensor call is unusable because seq_dim=0 and batch_dim=0 violate the ReverseSequence invariant, while Graph also drops the Tensor method's seq_dim default."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 6,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

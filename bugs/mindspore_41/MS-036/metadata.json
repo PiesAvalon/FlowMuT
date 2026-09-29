@@ -1,0 +1,54 @@
+{
+  "id": "MS-036",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / primitive argument type",
+  "title": "IndexFill primitive rejects documented scalar value arguments",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T043617Z-p1645097",
+  "source_cases": [
+    "TIFILL-001",
+    "TIFILL-002",
+    "TARG5-022"
+  ],
+  "control_cases": [
+    "TIFILL-003",
+    "TIFILL-004",
+    "TARG5-021"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260802T042828Z-p1638588"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues IndexFill value must be Tensor got Int64 MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues IndexFill value Union bool int float Tensor",
+    "\"For Primitive[IndexFill]\" \"value\" \"must be Tensor\"",
+    "\"IndexFill\" \"type of input argument[value]\" \"Int64\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for IndexFill scalar value rejection.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.IndexFill.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.index_fill.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 IndexFill primitive docs list value as Union[bool, int, float, Tensor] and list CPU as a supported platform.",
+    "MindSpore 2.9 ops.index_fill docs also list value as Union[bool, int, float, Tensor].",
+    "The functional ops.index_fill and Tensor.index_fill wrappers accept the same scalar int value in both PyNative and Graph mode, so the failure is localized to direct primitive invocation."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the failing path raises before producing a tensor.",
+    "Not a CPU unsupported issue: the primitive docs list CPU support, Tensor-valued value controls pass, and functional/Tensor wrappers pass on CPU.",
+    "The rejected values are ordinary documented scalar values: int and float.",
+    "The direct primitive error is TypeError: 'the type of input argument[value] must be Tensor'."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 12,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

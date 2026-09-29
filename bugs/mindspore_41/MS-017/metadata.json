@@ -1,0 +1,62 @@
+{
+  "id": "MS-017",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method keyword signature",
+  "title": "Tensor.amax/amin keyword arguments fail in Graph mode while ops controls work",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T050439Z-p632142",
+  "source_runs": [
+    "artifacts/behavioral/20260801T050439Z-p632142",
+    "artifacts/behavioral/20260801T052517Z-p657085"
+  ],
+  "source_cases": [
+    "TREDX-008",
+    "TREDX-009",
+    "TREDX-010",
+    "TREDX-011"
+  ],
+  "additional_confirmation_cases": [
+    "TKEY-025",
+    "TKEY-026",
+    "TKEYX-001",
+    "TKEYX-002"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"Tensor.amax\" \"initial\" \"Graph\" \"MindSpore\"",
+    "\"Tensor.amin\" \"initial\" \"Graph\" \"MindSpore\"",
+    "\"Tensor.amax\" \"keepdims\" \"Graph\" \"MindSpore\"",
+    "\"Tensor.amin\" \"keepdims\" \"Graph\" \"MindSpore\"",
+    "\"GenerateKwParams\" \"initial\" \"amax\" \"MindSpore\"",
+    "\"Got an unexpected keyword argument\" \"initial\" \"MindSpore\" \"amax\"",
+    "site:gitee.com/mindspore/mindspore/issues \"amax\" \"initial\" \"Graph\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore/issues \"amin\" \"initial\" \"Graph\" \"MindSpore\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.amax\" \"initial\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.amax.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.amin.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.amin.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local Tensor.amax/Tensor.amin expose keepdims, initial, and where keyword parameters and forward them to the tensor operator registry.",
+    "MindSpore 2.9 local ops.amax/ops.amin accept the same keepdims and initial keywords and compile successfully in Graph mode on CPU.",
+    "MindSpore 2.9 local Graph standard_method.py defines amax(input, axis=None, keep_dims=False) and amin(input, axis=None, keep_dims=False), omitting initial and where."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: integer reductions with exact expected outputs are used.",
+    "Not an unsupported CPU kernel issue: direct ops.amax and ops.amin compile and run in Graph mode on the same CPU input.",
+    "The failure is localized to Graph parsing/lowering of the Tensor method keyword signature."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 28,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

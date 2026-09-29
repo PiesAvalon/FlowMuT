@@ -1,0 +1,76 @@
+{
+  "id": "MS-031",
+  "status": "issue-ready",
+  "kind": "bug / Graph / sparse CSR / CPU kernel metadata",
+  "title": "Graph mode CSRMV fails with dense vector operand on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T203408Z-p1421780",
+  "source_cases": [
+    "TSP2-005"
+  ],
+  "control_cases": [
+    "TSP2-001",
+    "TSP2-002",
+    "TSP2-003",
+    "TSP2-007"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T203854Z-p1425588",
+    "artifacts/behavioral/20260801T203854Z-p1425594"
+  ],
+  "repeat_cases": [
+    "TSPC-002"
+  ],
+  "held_back_related_candidates": [
+    {
+      "case_id": "TSPC-001",
+      "op": "CSRReduceSum",
+      "reason": "CSRTensor.sum method docstring notes CPU currently requires LLVM 12.0.1; local llvm-config is unavailable, so it was not promoted."
+    },
+    {
+      "case_id": "TSPC-003",
+      "op": "CSRMM",
+      "reason": "CSRTensor.mm dense Tensor path docstring notes CPU currently requires LLVM >= 12.0.1; local llvm-config is unavailable, so it was not promoted."
+    },
+    {
+      "case_id": "TSPC-004",
+      "op": "COO2CSR",
+      "reason": "COOTensor.to_csr method docstring notes CPU currently requires LLVM 12.0.1; local llvm-config is unavailable, so it was not promoted."
+    }
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues \"Parsed metadata of op[CSRMV] failed\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Parsed metadata of op[CSRMV] failed\"",
+    "\"Parsed metadata of op[CSRMV] failed\" MindSpore",
+    "gh search issues '\"Parsed metadata of op[CSRMV] failed\" repo:mindspore-ai/mindspore'"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.CSRTensor.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.ops.html",
+    ".envs/ms29/lib/python3.11/site-packages/mindspore/ops/function/sparse_func.py:252",
+    ".envs/ms29/lib/python3.11/site-packages/mindspore/common/sparse_tensor.py:1030"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local csr_mv docstring accepts a CSRTensor and dense Tensor, returns a dense Tensor, and lists GPU and CPU as supported platforms.",
+    "MindSpore 2.9 local CSRTensor.mv docstring lists GPU and CPU as supported platforms and does not mention the LLVM precondition that appears on CSRTensor.sum/mm/to_csr.",
+    "The tested input has shape (2, 3), the dense vector has shape (3, 1), and PyNative returns a dense Tensor of shape (2, 1)."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode fails before returning a dense result.",
+    "Not a general CSR unsupported issue: CSRTensor.to_tuple, astype, abs, and add controls pass in Graph mode on CPU.",
+    "Not an invalid shape issue: the matrix-vector dimensions are compatible and PyNative returns a Tensor with shape (2, 1).",
+    "The Graph error is localized to CSRMV CPU kernel metadata parsing: 'Parsed metadata of op[CSRMV] failed'."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

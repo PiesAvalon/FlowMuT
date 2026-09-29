@@ -1,0 +1,69 @@
+{
+  "id": "MS-028",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method / shape metadata",
+  "title": "Graph mode ops.shape returns scalar Tensors for Tensor.svd outputs",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T183200Z-p1321296",
+  "source_cases": [
+    "TSVD-001",
+    "TSVD-002",
+    "TSVD-003"
+  ],
+  "control_cases": [
+    "TSVD-004",
+    "TSVD-005"
+  ],
+  "additional_confirmation_cases": [
+    "TAPI7-012",
+    "TSVD2-001",
+    "TSVD2-002",
+    "TSVD2-003",
+    "TWRAP-020",
+    "TWRAP-027"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T182908Z-p1317748",
+    "artifacts/behavioral/20260801T182908Z-p1317757",
+    "artifacts/behavioral/20260801T182908Z-p1317763"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260801T182138Z-p1311294"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues Tensor.svd ops.shape Graph shape metadata scalar Tensor",
+    "site:gitee.com/mindspore/mindspore/issues Tensor.svd ops.shape Graph scalar Tensor shape",
+    "\"Tensor.svd\" \"ops.shape\" \"MindSpore\" \"Graph\"",
+    "\"svd\" \"ops.shape\" \"Graph\" \"mindspore\" \"scalar\"",
+    "site:gitee.com/mindspore/mindspore/issues \"Svd\" \"shape\" \"Graph\" \"Tensor\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.svd\" \"shape\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.svd.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.svd.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.shape.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 Tensor.svd exposes full_matrices and compute_uv and refers to mindspore.ops.svd.",
+    "MindSpore 2.9 ops.svd exposes input, full_matrices and compute_uv and documents CPU support.",
+    "MindSpore 2.9 local ops.shape docstring says the return value is tuple[int]."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the reproducer checks shape metadata only.",
+    "Not a CPU unsupported issue: ops.svd controls and Tensor.svd .shape-property controls pass on CPU.",
+    "Not a keyword-binding issue: positional and keyword Tensor.svd calls reproduce the same metadata mismatch.",
+    "Different from MS-026's window-function shape issue: this is isolated to the Tensor.svd method wrapper while functional ops.svd controls pass."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

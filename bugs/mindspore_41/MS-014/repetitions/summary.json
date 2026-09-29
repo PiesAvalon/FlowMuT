@@ -1,0 +1,28 @@
+{
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-014/reproducer.py --mode graph --variant expand_varargs",
+      "repetitions": 3,
+      "result": "failed all 3 runs with TypeError about expand receiving 3 arguments while Graph standard_method.expand expects 2"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-014/reproducer.py --mode graph --variant expand_tuple",
+      "repetitions": 3,
+      "result": "failed all 3 runs with RuntimeError: The method 'GetShapeVector()' doesn't implement"
+    }
+  ],
+  "controls": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-014/reproducer.py --mode graph --variant broadcast_to",
+      "result": "succeeded and returned Tensor(shape=(2, 3), dtype=Float32) with values [[1.0, 2.0, 3.0], [1.0, 2.0, 3.0]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-014/reproducer.py --mode pynative --variant expand_varargs",
+      "result": "succeeded and returned the expected broadcast tensor"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-014/reproducer.py --mode pynative --variant expand_tuple",
+      "result": "succeeded and returned the expected broadcast tensor"
+    }
+  ]
+}

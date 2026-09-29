@@ -1,0 +1,29 @@
+{
+  "id": "MS-010",
+  "runs": [
+    {
+      "name": "pynative-tensor-default",
+      "command": ".envs/ms29/bin/python findings/MS-010/reproducer.py --mode pynative --variant tensor_default",
+      "repetitions": 3,
+      "result": "3/3 returned scalar 3"
+    },
+    {
+      "name": "graph-tensor-default",
+      "command": ".envs/ms29/bin/python findings/MS-010/reproducer.py --mode graph --variant tensor_default",
+      "repetitions": 3,
+      "result": "3/3 returned vector [0, 0]"
+    },
+    {
+      "name": "graph-tensor-dim-none",
+      "command": ".envs/ms29/bin/python findings/MS-010/reproducer.py --mode graph --variant tensor_dim_none",
+      "repetitions": 3,
+      "result": "3/3 returned scalar 3"
+    },
+    {
+      "name": "graph-ops-default",
+      "command": ".envs/ms29/bin/python findings/MS-010/reproducer.py --mode graph --variant ops_default",
+      "repetitions": 3,
+      "result": "3/3 returned scalar 3"
+    }
+  ]
+}

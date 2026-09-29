@@ -1,0 +1,62 @@
+{
+  "id": "MS-030",
+  "status": "issue-ready",
+  "kind": "bug / Graph / sparse CSR / return handling",
+  "title": "Graph mode CSRDiv fails when returning a CSRTensor result with dense Tensor operand",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T202303Z-p1411696",
+  "source_cases": [
+    "TSPD-001"
+  ],
+  "control_cases": [
+    "TSPD-002",
+    "TSPD-004"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T202602Z-p1414014",
+    "artifacts/behavioral/20260801T202602Z-p1414023"
+  ],
+  "additional_confirmation_runs": [
+    "artifacts/behavioral/20260801T202853Z-p1416934"
+  ],
+  "additional_cases": [
+    "TSPB-003",
+    "TSPD-003",
+    "TSPD-005"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues CSRDiv TupleUnfold",
+    "site:github.com/mindspore-ai/mindspore/issues CSRDiv TupleUnfold",
+    "\"Tuple to TupleUnfold pattern\" \"CSRDiv\" MindSpore",
+    "\"Default/CSRDiv-op0\" MindSpore",
+    "gh search issues '\"Tuple to TupleUnfold pattern\" \"CSRDiv\" repo:mindspore-ai/mindspore'"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/mindspore.CSRTensor.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.ops.html",
+    ".envs/ms29/lib/python3.11/site-packages/mindspore/ops/function/sparse_func.py:193"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local csr_div docstring accepts x as CSRTensor and y as Tensor and lists CPU as a supported platform.",
+    "The local csr_div docstring/type annotation say the function returns a dense Tensor/non-zero values, but the non-scalar dense Tensor branch returns CSRTensor(x.indptr, x.indices, res_values, x.shape).",
+    "The same docstring tells users who expect CSRTensor output to use the / operator; that operator path also fails in Graph mode with the same CSRDiv TupleUnfold error."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode raises before returning values.",
+    "Not a general CSR unsupported issue: CSR unary and dtype controls pass in Graph mode on CPU.",
+    "Not merely a documentation issue: both ops.csr_div(csr, dense) and csr / dense are executable in PyNative mode, while Graph mode fails in the CSRDiv return/unfold path.",
+    "The core Graph error is localized to CSRDiv result return handling: 'Tuple to TupleUnfold pattern should have TupleGetItem as user node, but got Default/CSRDiv-op0'."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

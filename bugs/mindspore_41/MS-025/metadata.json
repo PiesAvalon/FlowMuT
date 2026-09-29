@@ -1,0 +1,61 @@
+{
+  "id": "MS-025",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / argument type",
+  "title": "ops.unsorted_segment_min/max/prod reject documented Tensor num_segments on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T163222Z-p1205982",
+  "source_cases": [
+    "TSEGX-002",
+    "TSEGX-003",
+    "TSEGX-004"
+  ],
+  "additional_confirmation_cases": [
+    "TUNION-014",
+    "TUNION-015",
+    "TUNION-016"
+  ],
+  "control_cases": [
+    "TSEGX-001"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T163714Z-p1209581",
+    "artifacts/behavioral/20260801T163827Z-p1210522",
+    "artifacts/behavioral/20260801T212410Z-p1467578",
+    "artifacts/behavioral/20260801T212541Z-p1468771"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore \"UnsortedSegmentMin\" \"num_segments value must be greater than 0\" \"-1\"",
+    "site:github.com/mindspore-ai/mindspore \"UnsortedSegmentMax\" \"Tensor[Int32]\" \"num_segments\"",
+    "\"For 'UnsortedSegmentProd', num_segments value must be greater than 0, but got: -1\" \"MindSpore\"",
+    "\"UnsortedSegmentArithmeticInferShape\" \"num_segments value must be greater than 0\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.unsorted_segment_min.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.unsorted_segment_max.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.unsorted_segment_prod.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.unsorted_segment_sum.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 official unsorted_segment_min/max/prod documentation lists num_segments as Union[int, Tensor] and says it can be an int or 0-D Tensor.",
+    "The same documentation pages list CPU as a supported platform.",
+    "ops.unsorted_segment_sum documents the same Union[int, Tensor] num_segments contract and succeeds with Tensor num_segments, providing a family-level control."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: failing calls do not return values.",
+    "Not a general CPU unsupported issue: Python-int num_segments succeeds for min/max/prod, and Tensor num_segments succeeds for sum.",
+    "The Tensor num_segments input is scalar and positive, so the -1 value in PyNative appears to come from inference/argument handling rather than user input."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 24,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

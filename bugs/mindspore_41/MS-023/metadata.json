@@ -1,0 +1,50 @@
+{
+  "id": "MS-023",
+  "status": "issue-ready",
+  "kind": "bug / CPU / documented argument unsupported",
+  "title": "ops.round/Tensor.round reject documented nonzero decimals on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T111118Z-p1029612",
+  "source_cases": [
+    "TROUND-001",
+    "TROUND-002",
+    "TROUND-003"
+  ],
+  "control_cases": [
+    "TREF-006"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T111411Z-p1031799",
+    "artifacts/behavioral/20260801T111411Z-p1031805"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore \"For Round only support decimals equal 0\"",
+    "site:github.com/mindspore-ai/mindspore \"For Round only support decimals equal 0\"",
+    "\"mindspore.ops.round\" \"decimals\" \"CPU\" \"only support decimals equal 0\"",
+    "\"Round only support decimals equal 0\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.round.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 official ops.round documentation exposes decimals as a keyword argument, describes positive and negative decimals, shows examples for both, and lists CPU as a supported platform.",
+    "Tensor.round in the local 2.9.0 wheel refers users to mindspore.ops.round."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the CPU kernel rejects the call before returning a value.",
+    "Not a Graph-only issue: PyNative and Graph both fail with the same CPU kernel check.",
+    "Not a general CPU unsupported issue: ops.round(x) with decimals=0 succeeds in both modes."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

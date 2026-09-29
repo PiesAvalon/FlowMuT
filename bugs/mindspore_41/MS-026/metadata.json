@@ -1,0 +1,62 @@
+{
+  "id": "MS-026",
+  "status": "issue-ready",
+  "kind": "bug / Graph / API-contract / shape metadata",
+  "title": "ops.shape returns scalar Tensor instead of tuple for hann_window/kaiser_window outputs in Graph mode",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T171915Z-p1262997",
+  "source_cases": [
+    "TWINSHAPE-002",
+    "TWINSHAPE-003"
+  ],
+  "control_cases": [
+    "TWINSHAPE-001"
+  ],
+  "additional_confirmation_cases": [
+    "TAPI3-024",
+    "TAPI3-025",
+    "TWIN-004",
+    "TWIN2-001"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T172112Z-p1264636",
+    "artifacts/behavioral/20260801T172208Z-p1265426"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues hann_window ops.shape Graph returns Tensor",
+    "site:github.com/mindspore-ai/mindspore/issues kaiser_window ops.shape Graph mode Tensor shape",
+    "site:gitee.com/mindspore/mindspore/issues hann_window ops.shape GRAPH_MODE Tensor",
+    "site:gitee.com/mindspore/mindspore/issues kaiser_window ops.shape GRAPH_MODE Tensor",
+    "\"MindSpore\" \"ops.shape\" \"hann_window\" \"Tensor\"",
+    "\"MindSpore\" \"ops.shape\" \"kaiser_window\" \"Tensor\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.shape.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.hamming_window.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.hann_window.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.kaiser_window.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local ops.shape docstring says the return value is tuple[int].",
+    "MindSpore 2.9 local hamming_window, hann_window and kaiser_window docstrings list CPU as a supported platform and return a 1-D tensor.",
+    "The reproduced output tensor has shape (5,) in both modes; only ops.shape(y) changes from tuple to scalar Tensor for hann_window and kaiser_window in Graph mode."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the reproducer checks metadata type/structure, not floating-point values.",
+    "Not a general CPU unsupported issue: all tested window functions return tensors successfully on CPU.",
+    "The hamming_window control returns tuple shape metadata in both PyNative and Graph mode.",
+    "The likely localized area is Graph-mode shape inference for tensors created by the Python-composed hann_window and kaiser_window implementations."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 6,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

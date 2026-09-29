@@ -1,0 +1,42 @@
+{
+  "id": "MS-011",
+  "summary": "Tensor.diag() fails consistently in Graph mode, while PyNative Tensor.diag() and Graph/PyNative ops.diag() succeed.",
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode pynative --variant tensor_method",
+      "expected": "success",
+      "returncode": 0,
+      "key_output": "shape: (3, 3); result: [[1 0 0] [0 2 0] [0 0 3]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode graph --variant functional",
+      "expected": "success",
+      "returncode": 0,
+      "key_output": "shape: (3, 3); result: [[1 0 0] [0 2 0] [0 0 3]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode pynative --variant functional",
+      "expected": "success",
+      "returncode": 0,
+      "key_output": "shape: (3, 3); result: [[1 0 0] [0 2 0] [0 0 3]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode graph --variant tensor_method",
+      "expected": "failure",
+      "returncode": 1,
+      "key_output": "RuntimeError: As a deprecated Tensor method, 'diag' should be registered in graph/_parse/deprecated/deprecated_tensor_method.py::deprecated_tensor_method_map"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode graph --variant tensor_method",
+      "expected": "failure",
+      "returncode": 1,
+      "key_output": "same RuntimeError on repeat 2"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-011/reproducer.py --mode graph --variant tensor_method",
+      "expected": "failure",
+      "returncode": 1,
+      "key_output": "same RuntimeError on repeat 3"
+    }
+  ]
+}

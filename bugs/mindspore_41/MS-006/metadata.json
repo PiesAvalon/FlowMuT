@@ -1,0 +1,28 @@
+{
+  "id": "MS-006",
+  "status": "issue-ready",
+  "kind": "bug / Graph / deprecated Tensor method registration",
+  "title": "Tensor.index_add(indices, y, axis) fails in Graph mode because deprecated Tensor method is not registered",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T194833Z-p253662",
+  "source_cases": [
+    "TUPD-001"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues \"deprecated_tensor_method_map\" \"index_add\"",
+    "site:gitee.com/mindspore/mindspore/issues \"deprecated_tensor_method_map\" \"index_add\"",
+    "\"As a deprecated Tensor method\" \"index_add\" \"deprecated_tensor_method_map\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 4,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

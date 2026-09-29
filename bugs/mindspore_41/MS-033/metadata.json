@@ -1,0 +1,54 @@
+{
+  "id": "MS-033",
+  "status": "issue-ready",
+  "kind": "bug / Graph / sparse CSR / Python implementation",
+  "title": "Graph mode ops.csr_softmax fails with Closure/free-variable error",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T204331Z-p1430881",
+  "source_cases": [
+    "TSPN-002"
+  ],
+  "control_cases": [
+    "TSPN-003",
+    "TSPN-004",
+    "TSPN-005",
+    "TSPN-006",
+    "TSPN-007"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T204552Z-p1432792",
+    "artifacts/behavioral/20260801T204552Z-p1432798"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "\"The Map operator don't support Closure with free variable yet\" \"csr_softmax\"",
+    "site:gitee.com/mindspore/mindspore/issues csr_softmax \"Closure with free variable\"",
+    "site:github.com/mindspore-ai/mindspore/issues csr_softmax \"Closure with free variable\"",
+    "gh search issues 'csr_softmax \"Closure with free variable\" repo:mindspore-ai/mindspore'"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore.ops.html",
+    ".envs/ms29/lib/python3.11/site-packages/mindspore/ops/function/sparse_func.py:771"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local ops.csr_softmax docstring accepts a CSRTensor and dtype, returns a CSRTensor, and lists GPU and CPU as supported platforms.",
+    "The local implementation constructs SparseMatrixSoftmax(dtype), then converts the returned shape Tensor through shape.asnumpy().tolist() before returning a CSRTensor."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode fails before returning the softmax result.",
+    "Not an invalid sparse input issue: PyNative returns a CSRTensor tuple, and CSR/COO controls pass in Graph mode on CPU.",
+    "Not a random/nondeterministic issue: the same Graph error reproduces in three independent runs.",
+    "The Graph error is localized to the csr_softmax implementation path: 'The Map operator don't support Closure with free variable yet'."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

@@ -1,0 +1,54 @@
+{
+  "id": "MS-021",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Python builtin / Tensor iterator",
+  "title": "Graph mode rejects map(lambda, Tensor) even though Tensor iteration and map over Tensor-row tuples work",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T090152Z-p873310",
+  "source_cases": [
+    "TPYB-004"
+  ],
+  "control_cases": [
+    "TPYB-001",
+    "TPYB-003",
+    "TPYB-005",
+    "TPYB-007"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T090152Z-p873316",
+    "artifacts/behavioral/20260801T090400Z-p876265"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"Map can only be applied to list, tuple, but got Tensor\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore \"Map can only be applied to list, tuple\" \"Tensor\"",
+    "site:github.com/mindspore-ai/mindspore \"tuple(map\" \"Tensor\" \"Graph\"",
+    "site:gitee.com/mindspore/mindspore \"tuple(map\" \"Tensor\" \"Graph\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html",
+    "https://docs.python.org/3/library/functions.html#map"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 static graph syntax documentation lists map as a supported Python built-in and describes its use as similar to Python.",
+    "Python map accepts an iterable. In this environment, Tensor is iterable in PyNative mode and in Graph controls such as zip(Tensor, Tensor), sum(Tensor), and for iteration.",
+    "Graph map over a tuple of Tensor rows works, so the lambda body and Tensor row operation are supported."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the failure is a Graph compile-time termination mismatch.",
+    "Not a CPU kernel issue: no backend kernel is reached; tuple-map and Tensor-zip controls run on CPU.",
+    "Distinct from MS-020: this does not involve next() returning iterator internals.",
+    "Distinct from MS-022: this is map rejecting Tensor as an input sequence, while MS-022 is filter failing when the predicate returns a scalar Tensor bool."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

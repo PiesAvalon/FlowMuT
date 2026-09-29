@@ -1,0 +1,41 @@
+{
+  "id": "MS-016",
+  "status": "issue-ready",
+  "kind": "bug / PyNative / Tensor method wrapper call",
+  "title": "Tensor.eigvals() fails in PyNative mode because the wrapper calls ops.eigvals without the tensor",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T235845Z-p497579",
+  "source_cases": [
+    "TLIN-012"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"Tensor.eigvals\" \"missing 1 required positional argument\" \"MindSpore\"",
+    "\"eigvals() missing 1 required positional argument: 'A'\" \"mindspore\"",
+    "\"return tensor_operator_registry.get(\\\"eigvals\\\")()(self)\"",
+    "site:gitee.com/mindspore/mindspore/issues \"Tensor.eigvals\" \"missing 1 required positional argument\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.eigvals\" \"missing 1 required positional argument\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9 local Tensor.eigvals is present and its docstring refers to mindspore.ops.eigvals.",
+    "A public Tensor.eigvals API page from the MindSpore 2.7.2 documentation documents Tensor.eigvals() as referring to mindspore.ops.eigvals().",
+    "The MindSpore 2.9 ops index documents ops.eigvals as supporting Ascend and CPU.",
+    "The local Graph standard method correctly routes Tensor.eigvals to F.eigvals(x)."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the Tensor method raises before computing any eigenvalues in PyNative mode.",
+    "Not an unsupported CPU eigvals kernel issue: ops.eigvals(x) works in PyNative and Graph modes, and Tensor.eigvals() works in Graph mode.",
+    "The failure is localized to the PyNative Tensor wrapper calling tensor_operator_registry.get('eigvals')() before passing self."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 4,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

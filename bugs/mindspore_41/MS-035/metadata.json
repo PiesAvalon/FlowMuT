@@ -1,0 +1,56 @@
+{
+  "id": "MS-035",
+  "status": "issue-ready",
+  "kind": "bug / Graph / API-contract / Tensor argument",
+  "title": "Graph mode ops.repeat_interleave fails with scalar Tensor repeats",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T214316Z-p1483705",
+  "source_cases": [
+    "TRI-001",
+    "TRI-002",
+    "TARG3-004"
+  ],
+  "control_cases": [
+    "TRI-003",
+    "TRI-004",
+    "TRI-005",
+    "TARG3-003",
+    "TARG3-005",
+    "TARG3-006"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260801T214106Z-p1481835"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues repeat_interleave Tensor repeats \"Convert data failed\" MindSpore",
+    "site:gitee.com/mindspore/mindspore/issues repeat_interleave \"Convert data failed\" \"Tensor\"",
+    "\"repeat_interleave\" \"Convert data failed\" \"MindSpore\"",
+    "\"repeat_interleave\" \"ms.Tensor(2\" \"GRAPH_MODE\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found. Broad version-merge issues mention repeat_interleave but do not match this scalar Tensor repeats Graph failure.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.repeat_interleave.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 ops.repeat_interleave documents repeats as Union[int, tuple, list, Tensor] and lists CPU as a supported platform.",
+    "The same documentation examples show scalar Python-int repeats on axis 0 and axis 1.",
+    "A 1-D Tensor containing a single repeat count and a vector Tensor repeats input both compile in Graph mode, so this is localized to 0-D/scalar Tensor repeats."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: all checks are exact int32 repeat results or metadata, and Graph mode fails before producing a result.",
+    "Not a CPU unsupported issue: PyNative succeeds on CPU, Python-int repeats succeed in Graph mode, and Tensor-vector repeats succeed in Graph mode.",
+    "Not a reference-expression artifact: TRI-001 and TRI-002 reproduce the Graph failure independently for axis 0 and axis 1.",
+    "The Graph error is a framework unexpected exception: 'Convert data failed' at static_analysis/prim.cc:729 RunPyInferValue."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

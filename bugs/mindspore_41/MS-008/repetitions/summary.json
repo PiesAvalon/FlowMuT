@@ -1,0 +1,29 @@
+{
+  "id": "MS-008",
+  "runs": [
+    {
+      "name": "graph-statement",
+      "command": ".envs/ms29/bin/python findings/MS-008/reproducer.py --mode graph --variant statement",
+      "repetitions": 3,
+      "result": "3/3 succeeded but returned the original unmodified tensor [[1,4,2],[3,0,5]]"
+    },
+    {
+      "name": "graph-return-value",
+      "command": ".envs/ms29/bin/python findings/MS-008/reproducer.py --mode graph --variant return_value",
+      "repetitions": 3,
+      "result": "3/3 returned the filled tensor [[9,4,9],[3,9,5]]"
+    },
+    {
+      "name": "pynative-return-value",
+      "command": ".envs/ms29/bin/python findings/MS-008/reproducer.py --mode pynative --variant return_value",
+      "repetitions": 3,
+      "result": "3/3 failed with RuntimeError: The kernel InplaceMaskedFillTensor unregistered."
+    },
+    {
+      "name": "functional-control",
+      "command": ".envs/ms29/bin/python findings/MS-008/reproducer.py --mode graph --variant functional",
+      "repetitions": 1,
+      "result": "1/1 returned the filled tensor; the non-in-place API is usable."
+    }
+  ]
+}

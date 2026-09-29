@@ -1,0 +1,33 @@
+{
+  "id": "MS-010",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method default overload",
+  "title": "Tensor.argmax() no-argument overload uses last-dimension semantics in Graph mode",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T212956Z-p346202",
+  "source_cases": [
+    "TDEF-002"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.argmax\" \"Graph\" \"axis=None\"",
+    "site:gitee.com/mindspore/mindspore/issues \"Tensor.argmax\" \"axis=None\" \"Graph\"",
+    "\"Tensor.argmax\" \"axis=None\" \"Graph\" \"MindSpore\" \"[0 0]\"",
+    "\"x.argmax()\" \"MindSpore\" \"Graph\" \"PyNative\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9.0 Tensor.argmax documentation says axis=None computes all elements in the tensor.",
+    "The same page's no-argument example returns a scalar Tensor."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

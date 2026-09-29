@@ -1,0 +1,12 @@
+{
+  "command": ".envs/ms29/bin/python findings/MS-001/reproducer.py --mode <pynative|graph>",
+  "mindspore_version": "2.9.0",
+  "runs": [
+    {"mode": "pynative", "run": 1, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06},
+    {"mode": "pynative", "run": 2, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06},
+    {"mode": "pynative", "run": 3, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06},
+    {"mode": "graph", "run": 1, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06},
+    {"mode": "graph", "run": 2, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06},
+    {"mode": "graph", "run": 3, "output_dtype": "float64", "max_abs_error": 1.4674482509136055e-06}
+  ]
+}

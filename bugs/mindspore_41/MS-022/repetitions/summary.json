@@ -1,0 +1,33 @@
+{
+  "id": "MS-022",
+  "source_run": "artifacts/behavioral/20260801T090152Z-p873310",
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T090152Z-p873316",
+    "artifacts/behavioral/20260801T090400Z-p876265",
+    "artifacts/behavioral/20260801T090856Z-p879832",
+    "artifacts/behavioral/20260801T092219Z-p889780",
+    "artifacts/behavioral/20260801T092408Z-p891195"
+  ],
+  "stable_alerts": [
+    "TPYB-006--termination-mismatch",
+    "TPYB-008--termination-mismatch",
+    "TCOMP-003--termination-mismatch",
+    "TCOMP-004--termination-mismatch",
+    "TCOMP-005--termination-mismatch"
+  ],
+  "passing_controls": [
+    "TPYB-009",
+    "TPYB-010",
+    "TPYB-011",
+    "TCOMP-001",
+    "TCOMP-002"
+  ],
+  "observed_pattern": "Graph filtered sequence forms fail with pointer[seq_abs] is null when the predicate returns a scalar Tensor bool, while Python-bool filter controls, unfiltered comprehensions, and equivalent if control flow pass.",
+  "verdict": "issue-ready",
+  "not_counted_as": [
+    "precision",
+    "unsupported CPU kernel",
+    "general Tensor bool condition failure",
+    "duplicate of MS-021"
+  ]
+}

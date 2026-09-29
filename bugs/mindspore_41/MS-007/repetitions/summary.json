@@ -1,0 +1,92 @@
+[
+  {
+    "name": "pynative-scalar",
+    "args": ["--mode", "pynative", "--rhs", "scalar"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "graph-scalar",
+    "args": ["--mode", "graph", "--rhs", "scalar"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "pynative-selected",
+    "args": ["--mode", "pynative", "--rhs", "selected"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "graph-selected",
+    "args": ["--mode", "graph", "--rhs", "selected"],
+    "expected_returncode_zero": false,
+    "repetitions": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (6,1) and requested shape (3,4)"
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (6,1) and requested shape (3,4)"
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (6,1) and requested shape (3,4)"
+      }
+    ]
+  },
+  {
+    "name": "pynative-full",
+    "args": ["--mode", "pynative", "--rhs", "full"],
+    "expected_returncode_zero": false,
+    "repetitions": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: For primitive [BroadcastTo]: input's rank should be less equal to the number of proposed_shape, but got 2 and 1"
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: For primitive [BroadcastTo]: input's rank should be less equal to the number of proposed_shape, but got 2 and 1"
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "ValueError: For primitive [BroadcastTo]: input's rank should be less equal to the number of proposed_shape, but got 2 and 1"
+      }
+    ]
+  },
+  {
+    "name": "graph-full",
+    "args": ["--mode", "graph", "--rhs", "full"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  }
+]

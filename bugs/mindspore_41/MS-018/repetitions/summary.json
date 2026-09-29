@@ -1,0 +1,25 @@
+{
+  "id": "MS-018",
+  "runs": [
+    {
+      "command": ".envs/ms29/bin/python findings/MS-018/reproducer.py --mode pynative --variant tensor_default",
+      "result": "failed all 3 runs with ValueError: batch_dim should be != seq_dim: 0"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-018/reproducer.py --mode graph --variant tensor_default",
+      "result": "failed all 3 runs with RuntimeError: Miss argument input for parameter:seq_dim"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-018/reproducer.py --mode pynative --variant tensor_explicit",
+      "result": "succeeded all 3 runs with result [[2 1 3], [6 5 4]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-018/reproducer.py --mode graph --variant tensor_explicit",
+      "result": "succeeded all 3 runs with result [[2 1 3], [6 5 4]]"
+    },
+    {
+      "command": ".envs/ms29/bin/python findings/MS-018/reproducer.py --mode graph --variant ops_explicit",
+      "result": "succeeded all 3 runs with result [[2 1 3], [6 5 4]]"
+    }
+  ]
+}

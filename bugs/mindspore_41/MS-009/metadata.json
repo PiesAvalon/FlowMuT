@@ -1,0 +1,36 @@
+{
+  "id": "MS-009",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method default argument",
+  "title": "Tensor.diagonal_scatter(src) fails in Graph mode unless offset is passed explicitly",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T212733Z-p344546",
+  "source_cases": [
+    "TDIA-003"
+  ],
+  "additional_confirmation_cases": [
+    "TDEFARG-001"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues \"diagonal_scatter\" \"offset\" \"Miss argument\"",
+    "site:gitee.com/mindspore/mindspore/issues \"diagonal_scatter\" \"offset\" \"Miss argument\"",
+    "\"Miss argument input for parameter:offset\" \"MindSpore\"",
+    "\"diagonal_scatter\" \"MindSpore\" \"Graph\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "Tensor.diagonal_scatter is documented with offset=0.",
+    "ops.diagonal_scatter is documented with offset=0 and CPU support."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

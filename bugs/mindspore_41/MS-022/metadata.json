@@ -1,0 +1,63 @@
+{
+  "id": "MS-022",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Python builtin / internal compiler error",
+  "title": "Graph mode crashes with an internal seq_abs null pointer for filter/comprehension predicates returning scalar Tensor bool",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T090152Z-p873310",
+  "source_cases": [
+    "TPYB-006",
+    "TPYB-008",
+    "TCOMP-003",
+    "TCOMP-004",
+    "TCOMP-005"
+  ],
+  "control_cases": [
+    "TPYB-009",
+    "TPYB-010",
+    "TPYB-011",
+    "TCOMP-001",
+    "TCOMP-002"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T090152Z-p873316",
+    "artifacts/behavioral/20260801T090400Z-p876265",
+    "artifacts/behavioral/20260801T090856Z-p879832",
+    "artifacts/behavioral/20260801T092219Z-p889780",
+    "artifacts/behavioral/20260801T092408Z-p891195"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"The pointer[seq_abs] is null\" \"filter\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore \"pointer[seq_abs]\" filter",
+    "site:github.com/mindspore-ai/mindspore \"pointer[seq_abs]\" filter",
+    "\"tuple(filter\" \"row.sum() > 0\" \"MindSpore\"",
+    "\"list comprehension\" \"pointer[seq_abs] is null\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/tutorials/en/r2.9.0/compile/static_graph.html",
+    "https://docs.python.org/3/library/functions.html#filter"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 static graph syntax documentation lists filter as a supported Python built-in and describes its use as similar to Python.",
+    "Python filter accepts an iterable and keeps elements for which the predicate is true.",
+    "Graph mode supports the same Tensor scalar bool predicate in an equivalent if statement. filter(lambda row: True, ...) passes for both Tensor and tuple inputs, and unfiltered list/generator comprehensions over Tensor rows also pass."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the failure is a Graph internal compiler error.",
+    "Not a CPU kernel issue: the error occurs during Graph transformation/compilation.",
+    "Distinct from MS-021: filter with a Python-bool predicate works over Tensor; the failing axis is sequence filtering whose predicate returns a scalar Tensor bool.",
+    "The error message is internal ('pointer[seq_abs] is null'), so even if some filter predicate forms are unsupported, this should not surface as a null-pointer compiler failure."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 20,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

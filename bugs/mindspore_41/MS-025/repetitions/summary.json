@@ -1,0 +1,20 @@
+{
+  "id": "MS-025",
+  "runs": [
+    {
+      "run": "artifacts/behavioral/20260801T163222Z-p1205982",
+      "alerts": ["TUNION-014", "TUNION-015", "TUNION-016"],
+      "summary": "Initial temporary Union[int, Tensor] campaign reproduced failures for unsorted_segment_min/max/prod Tensor num_segments."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T163714Z-p1209581",
+      "alerts": ["TSEGX-002", "TSEGX-003", "TSEGX-004"],
+      "summary": "Permanent TSEGX rerun reproduced the same failures; TSEGX-001 sum control passed."
+    },
+    {
+      "run": "artifacts/behavioral/20260801T163827Z-p1210522",
+      "alerts": ["TSEGX-002", "TSEGX-003", "TSEGX-004"],
+      "summary": "Second permanent TSEGX rerun reproduced the same failures; TSEGX-001 sum control passed."
+    }
+  ]
+}

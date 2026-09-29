@@ -1,0 +1,26 @@
+{
+  "id": "MS-020",
+  "source_run": "artifacts/behavioral/20260801T084449Z-p854778",
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T084655Z-p856323",
+    "artifacts/behavioral/20260801T084655Z-p856329"
+  ],
+  "stable_alerts": [
+    "TITER-001--observation-mismatch",
+    "TITER-002--observation-mismatch",
+    "TITER-003--observation-mismatch"
+  ],
+  "passing_controls": [
+    "TITER-004",
+    "TITER-005",
+    "TITER-006"
+  ],
+  "observed_pattern": "Graph mode returns (current, rest) iterator protocol tuples for explicit next(...), while PyNative mode returns Python next() results.",
+  "verdict": "issue-ready",
+  "not_counted_as": [
+    "precision",
+    "unsupported CPU kernel",
+    "general Tensor iteration failure",
+    "duplicate of existing local finding"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "MS-039",
+  "status": "issue-ready",
+  "kind": "bug / API-contract / primitive constructor argument",
+  "title": "CountNonZero primitive ignores documented dims constructor argument and fails on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260802T051055Z-p1674669",
+  "source_cases": [
+    "TPRIM2-008"
+  ],
+  "control_cases": [
+    "TPRIM2-016"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260802T050818Z-p1671153",
+    "artifacts/behavioral/20260802T051056Z-p1674697"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues CountNonZero dims inputs number should be 2 got 1 MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues CountNonZero dims inputs number should be 2 got 1 MindSpore",
+    "\"CountNonZero\" \"inputs number should be 2 but got 1\"",
+    "\"ops.CountNonZero(dims\"",
+    "\"CountNonZero\" \"Unsupported op [CountNonZero] on CPU\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found for CountNonZero constructor dims failing with one documented input.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.count_nonzero.html",
+    "https://atomgit.com/mindspore/mindspore/blob/v2.9.0/mindspore/python/mindspore/ops/function/math_func.py"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 local help(ops.CountNonZero) shows signature CountNonZero(dims=None), documents dims as Union[int, tuple(int), list(int)], lists CPU support, and includes the example ops.CountNonZero(dims=[1])(x).",
+    "The installed 2.9 operations/array_ops.py source has CountNonZero.__init__(self, dims=None), init_prim_io_names(inputs=['x'], outputs=['y']), and adds dims as a primitive attribute.",
+    "The installed 2.9 auto_generate/gen_ops_prim.py source defines another CountNonZero with __call__(self, input, dim=None), which expects a call-time dim input.",
+    "The public functional ops.count_nonzero documents axis as Union[int, tuple(int), list(int)] and CPU support, and the functional axis-list control passes in both execution modes."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the primitive raises before producing a tensor.",
+    "Not a bad input issue: the failing form is copied from the local public CountNonZero docstring shape, and the same axis list passes through ops.count_nonzero on CPU.",
+    "Not localized to one execution mode: both PyNative and Graph mode fail, with different symptoms caused by the constructor dims not being wired into the active primitive call path.",
+    "The PyNative error says CountNonZero expects 2 inputs but got 1. The Graph error lowers dim as None and then reports CountNonZero unsupported on CPU."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 10,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "MS-012",
+  "status": "issue-ready",
+  "kind": "bug / CPU / in-place Tensor method inconsistent semantics",
+  "title": "Tensor.add_ has inconsistent statement and return-value semantics on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T222657Z-p401704",
+  "source_cases": [
+    "TINP-002"
+  ],
+  "related_source_cases": [
+    "TINP-003",
+    "TINP-004",
+    "TINP-005",
+    "TINP-006",
+    "TINP-007"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:gitee.com/mindspore/mindspore/issues Tensor add_ in-place PyNative no-op Graph mode MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues Tensor add_ in-place PyNative no-op Graph mode MindSpore",
+    "\"Tensor.add_\" \"Graph\" \"PyNative\" \"MindSpore\" \"in-place\"",
+    "\"Tensor.add_\" \"statement\" \"return_value\" \"MindSpore\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9.0 Tensor.add_ is documented as the in-place version of Tensor.add().",
+    "The MindSpore 2.9.0 Tensor page says all modes of CPU and GPU do not support in-place operations yet.",
+    "This finding is therefore scoped to inconsistent successful CPU behavior: unsupported in-place calls should fail clearly or behave consistently, not silently no-op in one form and mutate/alias differently in another."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

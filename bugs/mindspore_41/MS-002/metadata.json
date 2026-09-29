@@ -1,0 +1,47 @@
+{
+  "id": "MS-002",
+  "status": "issue-ready",
+  "kind": "bug",
+  "oracle_family": [
+    "cross-execution-agreement",
+    "metadata"
+  ],
+  "source_cases": [
+    "API-R-32-p0-03",
+    "API-R-32-p0-04"
+  ],
+  "additional_confirmation_cases": [
+    "TRED-001",
+    "TRED-002",
+    "TRED-003",
+    "TRED-004"
+  ],
+  "additional_confirmation_runs": [
+    "artifacts/behavioral/20260731T223739Z-p414115",
+    "artifacts/behavioral/20260801T072539Z-p776734",
+    "artifacts/behavioral/20260801T100523Z-p941375"
+  ],
+  "root_cause_key": "graph-tensor-max-min-positional-overload-resolution",
+  "mindspore_versions": [
+    "2.7.1",
+    "2.9.0",
+    "2.10.0"
+  ],
+  "device": "CPU",
+  "modes": [
+    "PYNATIVE_MODE",
+    "GRAPH_MODE"
+  ],
+  "upstream_duplicate_search_date": "2026-08-01",
+  "upstream_duplicate_queries": [
+    "repo:mindspore-ai/mindspore is:issue Tensor.max GRAPH_MODE",
+    "repo:mindspore-ai/mindspore is:issue Tensor.min tuple Graph",
+    "repo:mindspore-ai/mindspore is:issue max min values indices Pynative"
+  ],
+  "upstream_duplicate_matches": [],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 2,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

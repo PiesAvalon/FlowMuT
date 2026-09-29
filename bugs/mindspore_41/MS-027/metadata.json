@@ -1,0 +1,63 @@
+{
+  "id": "MS-027",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method keyword signature",
+  "title": "Tensor.col2im keyword arguments are rejected in Graph mode",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260801T175105Z-p1287732",
+  "source_cases": [
+    "TCOL2-002",
+    "TCOL2-003"
+  ],
+  "control_cases": [
+    "TCOL2-001",
+    "TCOL2-004"
+  ],
+  "additional_confirmation_cases": [
+    "TKEY2-002",
+    "TKEY2-003"
+  ],
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T175228Z-p1288833",
+    "artifacts/behavioral/20260801T175339Z-p1289826"
+  ],
+  "exploratory_runs": [
+    "artifacts/behavioral/20260801T174432Z-p1282507",
+    "artifacts/behavioral/20260801T174751Z-p1285271",
+    "artifacts/behavioral/20260801T174908Z-p1286259",
+    "artifacts/behavioral/20260801T174717Z-p1284791"
+  ],
+  "duplicate_search_date": "2026-08-02",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues Tensor.col2im keyword output_size unexpected keyword argument Graph MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues col2im output_size kernel_size keyword Graph Mode MindSpore",
+    "site:gitee.com/mindspore/mindspore/issues Tensor.col2im output_size unexpected keyword argument",
+    "site:gitee.com/mindspore/mindspore/issues col2im keyword kernel_size Graph MindSpore"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "source_links": [
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/mindspore/Tensor/mindspore.Tensor.col2im.html",
+    "https://www.mindspore.cn/docs/en/r2.9.0/api_python/ops/mindspore.ops.col2im.html"
+  ],
+  "documentation_notes": [
+    "MindSpore 2.9 Tensor.col2im exposes output_size, kernel_size, dilation, padding_value and stride in the Python signature.",
+    "MindSpore 2.9 ops.col2im exposes input_x, output_size, kernel_size, dilation, padding_value and stride and documents CPU support.",
+    "Tensor.col2im is deprecated after 2.9.0, but it remains present and documented in 2.9.0."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: Graph mode rejects the call at keyword binding.",
+    "Not an invalid input issue: positional Tensor.col2im succeeds in Graph mode with the same data.",
+    "Not an underlying ops.col2im keyword issue: direct ops.col2im keyword calls succeed in Graph mode.",
+    "The likely localized area is the Graph Tensor method wrapper or standard_method keyword binding for col2im."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 8,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "MS-014",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method argument parsing",
+  "title": "Tensor.expand fails in Graph mode while broadcast_to works on the same shape",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T234230Z-p484249",
+  "source_cases": [
+    "TSHP-015",
+    "TSHP-017"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"Tensor.expand\" \"GetShapeVector\" \"MindSpore\"",
+    "\"Tensor.expand\" \"parameters number of the function is 2\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore/issues \"Tensor.expand\" \"GetShapeVector\"",
+    "site:gitee.com/mindspore/mindspore/issues \"Tensor.expand\" \"parameters number\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.expand\" \"Graph\" \"parameters number\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9 local Tensor.expand is defined as def expand(self, *size) and says its size parameter is the same as the broadcast_to shape parameter.",
+    "MindSpore 2.9 local Graph standard_method.expand is defined as def expand(input, size), which does not accept varargs and converts the supplied size through TensorToTuple.",
+    "Tensor.broadcast_to((2, 3)) compiles and runs in Graph mode on the same input."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the result is exact broadcasting of a small row tensor.",
+    "Not an unsupported broadcast kernel issue: Tensor.broadcast_to((2, 3)) works in Graph mode on CPU.",
+    "The failure is localized to Graph parsing/lowering of Tensor.expand arguments."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 6,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

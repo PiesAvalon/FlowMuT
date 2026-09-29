@@ -1,0 +1,92 @@
+[
+  {
+    "name": "pynative-default",
+    "args": ["--mode", "pynative", "--order", "default"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "pynative-int32",
+    "args": ["--mode", "pynative", "--order", "int32"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "pynative-default-then-int32",
+    "args": ["--mode", "pynative", "--order", "default_then_int32"],
+    "expected_returncode_zero": false,
+    "repetitions": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 24"
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 24"
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 24"
+      }
+    ]
+  },
+  {
+    "name": "pynative-int32-then-default",
+    "args": ["--mode", "pynative", "--order", "int32_then_default"],
+    "expected_returncode_zero": false,
+    "repetitions": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 48"
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 48"
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: For 'SearchSorted', the dimension of `v` and output must be equal, but got the dimension of `v` 24 and the dimension of output 48"
+      }
+    ]
+  },
+  {
+    "name": "graph-default-then-int32",
+    "args": ["--mode", "graph", "--order", "default_then_int32"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "graph-int32-then-default",
+    "args": ["--mode", "graph", "--order", "int32_then_default"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  }
+]

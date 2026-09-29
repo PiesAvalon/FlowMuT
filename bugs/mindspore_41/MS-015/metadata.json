@@ -1,0 +1,41 @@
+{
+  "id": "MS-015",
+  "status": "issue-ready",
+  "kind": "bug / Graph / Tensor method registration typo",
+  "title": "Tensor.scatter_div fails in Graph mode because tensor_scatter_div is misspelled in standard_method",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T233947Z-p479849",
+  "source_cases": [
+    "TSCAT-023"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "\"tensor_sactter_div\" \"MindSpore\"",
+    "\"standard_method\" \"tensor_scatter_div\" \"AttributeError\" \"MindSpore\"",
+    "\"Tensor.scatter_div\" \"tensor_scatter_div\" \"Graph\" \"MindSpore\"",
+    "site:gitee.com/mindspore/mindspore/issues \"tensor_sactter_div\"",
+    "site:gitee.com/mindspore/mindspore/issues \"standard_method\" \"tensor_scatter_div\"",
+    "site:github.com/mindspore-ai/mindspore/issues \"Tensor.scatter_div\" \"AttributeError\""
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "MindSpore 2.9 local Tensor.scatter_div is present and returns tensor_operator_registry.get('tensor_scatter_div')(self, indices, updates).",
+    "MindSpore 2.9 local ops.tensor_scatter_div is CPU-supported and runs in Graph mode on the same input.",
+    "MindSpore 2.9 local Graph standard_method.py defines tensor_sactter_div, but Tensor method lookup needs tensor_scatter_div."
+  ],
+  "classification_notes": [
+    "Not a numerical precision issue: the repro divides two exact tensor elements by 2.0 and 4.0.",
+    "Not an unsupported CPU kernel issue: ops.tensor_scatter_div compiles and runs in Graph mode on CPU.",
+    "The failure is localized to a misspelled Graph standard_method registration."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 12,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

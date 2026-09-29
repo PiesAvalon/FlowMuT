@@ -1,0 +1,25 @@
+{
+  "id": "MS-021",
+  "source_run": "artifacts/behavioral/20260801T090152Z-p873310",
+  "repeat_runs": [
+    "artifacts/behavioral/20260801T090152Z-p873316",
+    "artifacts/behavioral/20260801T090400Z-p876265"
+  ],
+  "stable_alerts": [
+    "TPYB-004--termination-mismatch"
+  ],
+  "passing_controls": [
+    "TPYB-001",
+    "TPYB-003",
+    "TPYB-005",
+    "TPYB-007"
+  ],
+  "observed_pattern": "Graph mode rejects tuple(map(lambda row: row + 1, Tensor)) while PyNative succeeds and Graph controls over Tensor iteration or tuple rows succeed.",
+  "verdict": "issue-ready",
+  "not_counted_as": [
+    "precision",
+    "unsupported CPU kernel",
+    "lambda-body failure",
+    "duplicate of MS-020 or MS-022"
+  ]
+}

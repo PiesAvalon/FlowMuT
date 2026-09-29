@@ -1,0 +1,35 @@
+{
+  "id": "MS-003",
+  "status": "issue-ready",
+  "kind": "bug",
+  "oracle_family": [
+    "approximate-value",
+    "metadata"
+  ],
+  "source_cases": [
+    "REF-A64-003",
+    "REF-A64-008"
+  ],
+  "root_cause_key": "cpu-softplus-mish-float64-lower-precision",
+  "mindspore_versions": [
+    "2.7.1",
+    "2.9.0",
+    "2.10.0"
+  ],
+  "device": "CPU",
+  "modes": [
+    "PYNATIVE_MODE",
+    "GRAPH_MODE"
+  ],
+  "upstream_duplicate_search_date": "2026-08-01",
+  "upstream_duplicate_queries": [
+    "repo:mindspore-ai/mindspore is:issue softplus float64 precision",
+    "repo:mindspore-ai/mindspore is:issue mish float64 precision"
+  ],
+  "upstream_duplicate_matches": [],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 2,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

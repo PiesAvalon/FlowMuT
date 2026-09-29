@@ -1,0 +1,47 @@
+[
+  {
+    "name": "tensor-pynative",
+    "args": ["--mode", "pynative", "--api", "tensor"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  },
+  {
+    "name": "tensor-graph",
+    "args": ["--mode", "graph", "--api", "tensor"],
+    "expected_returncode_zero": false,
+    "repetitions": [
+      {
+        "run": 1,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: As a deprecated Tensor method, 'index_add' should be registered in graph/_parse/deprecated/deprecated_tensor_method.py::deprecated_tensor_method_map"
+      },
+      {
+        "run": 2,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: As a deprecated Tensor method, 'index_add' should be registered in graph/_parse/deprecated/deprecated_tensor_method.py::deprecated_tensor_method_map"
+      },
+      {
+        "run": 3,
+        "returncode": 1,
+        "ok": false,
+        "first_error": "RuntimeError: As a deprecated Tensor method, 'index_add' should be registered in graph/_parse/deprecated/deprecated_tensor_method.py::deprecated_tensor_method_map"
+      }
+    ]
+  },
+  {
+    "name": "ops-graph",
+    "args": ["--mode", "graph", "--api", "ops"],
+    "expected_returncode_zero": true,
+    "repetitions": [
+      {"run": 1, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 2, "returncode": 0, "ok": true, "first_error": ""},
+      {"run": 3, "returncode": 0, "ok": true, "first_error": ""}
+    ]
+  }
+]

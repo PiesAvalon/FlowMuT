@@ -1,0 +1,30 @@
+{
+  "id": "MS-004",
+  "status": "issue-ready",
+  "kind": "bug",
+  "oracle_family": [
+    "approximate-value"
+  ],
+  "source_case": "REF-A64-011",
+  "root_cause_key": "leaky-relu-scalar-to-tensor-float32-roundtrip",
+  "mindspore_versions": [
+    "2.7.1",
+    "2.9.0",
+    "2.10.0"
+  ],
+  "device": "CPU",
+  "modes": [
+    "PYNATIVE_MODE",
+    "GRAPH_MODE"
+  ],
+  "upstream_duplicate_search_date": "2026-08-01",
+  "upstream_duplicate_queries": [
+    "repo:mindspore-ai/mindspore is:issue leaky_relu float64 alpha"
+  ],
+  "upstream_duplicate_matches": [],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 2,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}

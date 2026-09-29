@@ -1,0 +1,34 @@
+{
+  "id": "MS-008",
+  "status": "issue-ready",
+  "kind": "bug / Graph / in-place Tensor method silent no-op",
+  "title": "Graph mode silently ignores Tensor.masked_fill_ used as an in-place statement on CPU",
+  "mindspore_versions": [
+    "2.9.0",
+    "2.10.0"
+  ],
+  "python_version": "3.11.15",
+  "device_target": "CPU",
+  "source_run": "artifacts/behavioral/20260731T212601Z-p343003",
+  "source_cases": [
+    "TINP-001"
+  ],
+  "duplicate_search_date": "2026-08-01",
+  "duplicate_search_queries": [
+    "site:github.com/mindspore-ai/mindspore/issues \"InplaceMaskedFillTensor\"",
+    "site:gitee.com/mindspore/mindspore/issues \"InplaceMaskedFillTensor\"",
+    "\"InplaceMaskedFillTensor unregistered\" MindSpore",
+    "site:github.com/mindspore-ai/mindspore/issues MindSpore Graph in-place operation no-op masked_fill_",
+    "site:gitee.com/mindspore/mindspore/issues MindSpore Graph in-place operation no-op masked_fill_"
+  ],
+  "duplicate_search_result": "No exact matching GitHub or Gitee issue found.",
+  "documentation_notes": [
+    "Tensor.masked_fill_ is documented as the in-place version of Tensor.masked_fill.",
+    "The MindSpore 2.9.0 Tensor page says CPU/GPU do not support in-place operations yet; this finding is therefore scoped to Graph silently no-oping instead of mutating or rejecting the statement-form call."
+  ],
+  "last_revalidated": "2026-08-03",
+  "revalidation_run": "artifacts/revalidation/20260803-ms210",
+  "revalidation_verdict": "confirmed-on-2.10.0",
+  "revalidation_invocations": 6,
+  "minimal_revalidation_run": "artifacts/revalidation/20260803-ms210/minimal_results.json"
+}
